@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import okio.ByteString;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -18,6 +19,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.RectF;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -25,6 +27,7 @@ import android.provider.MediaStore;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.util.SparseArray;
+import android.util.SparseIntArray;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -55,8 +58,11 @@ import com.google.gson.JsonObject;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -145,6 +151,7 @@ public class scanfinal extends AppCompatActivity implements IOCRCallBack {
                 Frame frame = new Frame.Builder().setBitmap(bitmap1).build();
 
                 SparseArray<TextBlock> items = textRecognizer.detect(frame);
+
 //                SparseArray<TextBlock> abcc = sortTB(items);
 
                 StringBuilder a = new StringBuilder();
@@ -163,30 +170,179 @@ public class scanfinal extends AppCompatActivity implements IOCRCallBack {
 
                     }
                 }
+//                for (int i = 0; i < items.size(); i++) {
+//                    TextBlock myItem = items.valueAt(i);
+//                    a.append(myItem.getValue());
+//                    if (myItem.getValue().contains("\n")) {
+//                        String[] list = myItem.getValue().split("\n");
+//                        for (String abc : list) {
+//                            arrayList.add(abc);
+//                        }
+//                    } else {
+//                        arrayList.add(myItem.getValue());
+//
+//                    }
+////                    arrayList.add(myItem.getValue());
+//                    a.append("\n");
+//                }
+
+//                try {
+////                    for (int i = 0; i < arrayList.size(); i = i + 2) {
+////                        map.put(arrayList.get(i), arrayList.get(i + 1));
+////                    }
+//                    map.clear();
+//                    map.put(arrayList.get(4), arrayList.get(3));
+//                    map.put(arrayList.get(5), arrayList.get(9));
+//                    map.put(arrayList.get(6), arrayList.get(10));
+//                    map.put(arrayList.get(7), arrayList.get(11));
+//                    map.put(arrayList.get(8), arrayList.get(12));
+//
+//                    map.put(arrayList.get(14), arrayList.get(13));
+//                    map.put(arrayList.get(15), arrayList.get(16));
+//                    map.put(arrayList.get(17), arrayList.get(18) + " " + arrayList.get(22));
+//                    map.put(arrayList.get(24), arrayList.get(19) + " " + arrayList.get(23));
+//                    map.put(arrayList.get(25), arrayList.get(20) + " " + arrayList.get(26));
+//                    map.put(arrayList.get(27), arrayList.get(21) + " " + arrayList.get(28));
+//
+//
+//                    map.put(arrayList.get(32), arrayList.get(29));
+//                    map.put(arrayList.get(32) + "2", arrayList.get(30));
+//
+//                    map.put(arrayList.get(33), arrayList.get(31));
+//                    map.put(arrayList.get(34) + " " + arrayList.get(35), arrayList.get(38));
+//                    map.put(arrayList.get(34) + " " + arrayList.get(36), arrayList.get(39));
+//                    map.put(arrayList.get(37), arrayList.get(40));
+//                    map.put(arrayList.get(42), arrayList.get(43));
+//
+//                    map.put(arrayList.get(44), arrayList.get(45));
+//                    map.put(arrayList.get(46), arrayList.get(47));
+//
+//
+//                } catch (Exception e) {
+//
+//                }
+                JsonObject responseObj = new JsonObject();
                 try {
-                    for (int i = 0; i < arrayList.size(); i = i + 2) {
-                        map.put(arrayList.get(i), arrayList.get(i + 1));
-                    }
-                }catch (Exception e){
+                    responseObj.addProperty(arrayList.get(3), arrayList.get(7));
+                } catch (Exception e) {
+
+                }
+                try {
+                    responseObj.addProperty(arrayList.get(4), arrayList.get(8));
+                } catch (Exception e) {
+
+                }
+                try {
+                    responseObj.addProperty(arrayList.get(5), arrayList.get(9));
+                } catch (Exception e) {
+
+                }
+                try {
+                    responseObj.addProperty(arrayList.get(6), arrayList.get(10));
+                } catch (Exception e) {
+
+                }
+                try {
+                    responseObj.addProperty(arrayList.get(12), arrayList.get(11));
+                } catch (Exception e) {
+
+                }
+                try {
+                    responseObj.addProperty(arrayList.get(14), arrayList.get(13));
+                } catch (Exception e) {
+
+                }
+                try {
+                    responseObj.addProperty(arrayList.get(15), arrayList.get(16));
+                } catch (Exception e) {
+
+                }
+                try {
+                    responseObj.addProperty(arrayList.get(17), arrayList.get(18) + " " + arrayList.get(22));
+                } catch (Exception e) {
+
+                }
+                try {
+                    responseObj.addProperty(arrayList.get(24), arrayList.get(19) + " " + arrayList.get(23));
+                } catch (Exception e) {
+
+                }
+                try {
+                    responseObj.addProperty(arrayList.get(25), arrayList.get(20) + " " + arrayList.get(26));
+                } catch (Exception e) {
+
+                }
+                try {
+                    responseObj.addProperty(arrayList.get(27), arrayList.get(21) + " " + arrayList.get(28));
+                } catch (Exception e) {
+
+                }
+                try {
+
+                    responseObj.addProperty(arrayList.get(32), arrayList.get(29));
+                } catch (Exception e) {
+
+                }
+                try {
+                    responseObj.addProperty(arrayList.get(32) + "2", arrayList.get(30));
+                } catch (Exception e) {
+
+                }
+                try {
+                    responseObj.addProperty(arrayList.get(33), arrayList.get(31));
+                } catch (Exception e) {
+
+                }
+                try {
+                    responseObj.addProperty(arrayList.get(34), "");
+                } catch (Exception e) {
+
+                }
+                try {
+                    responseObj.addProperty(arrayList.get(35), arrayList.get(38));
+                } catch (Exception e) {
+
+                }
+                try {
+                    responseObj.addProperty(arrayList.get(36), arrayList.get(39));
+                } catch (Exception e) {
+
+                }
+                try {
+                    responseObj.addProperty(arrayList.get(37), arrayList.get(40));
+                } catch (Exception e) {
+
+                }
+                try {
+                    responseObj.addProperty(arrayList.get(41), arrayList.get(42));
+                } catch (Exception e) {
+
+                }
+                try {
+                    responseObj.addProperty(arrayList.get(43), arrayList.get(44));
+                } catch (Exception e) {
+
+                }
+                try {
+                    responseObj.addProperty(arrayList.get(45), arrayList.get(46));
+                } catch (Exception e) {
 
                 }
 
-//
-                Gson gson = new Gson();
-                sss = gson.toJson(map);
+//                Gson gson = new Gson();
+//                sss = gson.toJson(responseObj);
 
-//                Gson gson = new GsonBuilder().setPrettyPrinting().create();
-//                String json = gson.toJson(responseObj);
-//                json = json.replace("u003e", "").replace("timee", "time").replace("\\", "");
-//
-                editTextJson.setText(sss);
+                Gson gson = new GsonBuilder().setPrettyPrinting().create();
+                String json = gson.toJson(responseObj);
+                json = json.replace("u003e", "").replace("timee", "time").replace("\\", "");
 
-                editText.setText(sss);
-//                sss = json;
+                editTextJson.setText(json);
+
+                editText.setText(json);
+                sss = json;
 
 
                 scannedtext = a.toString();
-
                 // Log.i("a",scannedtext);
 //                if (items.size() == 0) {
 //                    editText.setText("NO TEXT");
@@ -229,6 +385,8 @@ public class scanfinal extends AppCompatActivity implements IOCRCallBack {
 
 
     }
+
+
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     private SparseArray<TextBlock> sortTB(SparseArray<TextBlock> items) {

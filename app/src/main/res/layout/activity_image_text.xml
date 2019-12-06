@@ -19,7 +19,6 @@
         android:id="@+id/scantext"
         android:layout_width="490dp"
         android:layout_height="66dp"
-        android:background="@drawable/fui_idp_button_background_github"
         android:text="Scan Text"
         android:textColor="@color/common_google_signin_btn_text_dark_default"
         app:layout_constraintBottom_toBottomOf="parent"
